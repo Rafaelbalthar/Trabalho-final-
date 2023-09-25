@@ -1,0 +1,94 @@
+class Reserva {
+    constructor(solicitante, data, horario, sala, finalidade) {
+      this.solicitante = solicitante;
+      this.data = data;
+      this.horario = horario;
+      this.sala = sala;
+      this.finalidade = finalidade;
+    }
+  }
+  
+  const reservas = [];
+  
+  function criarReserva() {
+    const solicitante = prompt('Nome do solicitante:');
+    const data = prompt('Data da reserva (DD-MM-YYYY):');
+    const horario = prompt('Horário da reserva (HH:MM):');
+    const sala = prompt('Sala desejada:');
+    const finalidade = prompt('Finalidade da reunião:');
+  
+    const reserva = new Reserva(solicitante, data, horario, sala, finalidade);
+    reservas.push(reserva);
+  
+    console.log('Reserva criada com sucesso!');
+  }
+  
+  function listarReservas() {
+    console.log('Lista de Reservas:');
+    for (let i = 0; i < reservas.length; i++) {
+      const reserva = reservas[i];
+      console.log(`
+        Índice: ${i}
+        Solicitante: ${reserva.solicitante}
+        Data: ${reserva.data}
+        Horário: ${reserva.horario}
+        Sala: ${reserva.sala}
+        Finalidade: ${reserva.finalidade}
+      `);
+    }
+  }
+  
+  function editarReserva() {
+    const indice = parseInt(prompt('Informe o índice da reserva que deseja editar:'));
+    if (!isNaN(indice) && indice >= 0 && indice < reservas.length) {
+      const solicitante = prompt('Novo nome do solicitante:');
+      const data = prompt('Nova data da reserva (DD-MM-YYYY):');
+      const horario = prompt('Novo horário da reserva (HH:MM):');
+      const sala = prompt('Nova sala desejada:');
+      const finalidade = prompt('Nova finalidade da reunião:');
+  
+      const reservaEditada = new Reserva(solicitante, data, horario, sala, finalidade);
+      reservas[indice] = reservaEditada;
+  
+      console.log('Reserva editada com sucesso!');
+    } else {
+      console.log('Índice de reserva inválido.');
+    }
+  }
+  
+  function cancelarReserva() {
+    const indice = parseInt(prompt('Informe o índice da reserva que deseja cancelar:'));
+    if (!isNaN(indice) && indice >= 0 && indice < reservas.length) {
+      reservas.splice(indice, 1);
+      console.log('Reserva cancelada com sucesso!');
+    } else {
+      console.log('Índice de reserva inválido.');
+    }
+  }
+  
+  function executarPrograma() {
+    while (true) {
+      const opcao = prompt('Escolha uma opção:\n1. Criar reserva\n2. Listar reservas\n3. Editar reserva\n4. Cancelar reserva\n5. Sair');
+  
+      switch (opcao) {
+        case '1':
+          criarReserva();
+          break;
+        case '2':
+          listarReservas();
+          break;
+        case '3':
+          editarReserva();
+          break;
+        case '4':
+          cancelarReserva();
+          break;
+        case '5':
+          return;
+        default:
+          console.log('Opção inválida.');
+      }
+    }
+  }
+  
+  executarPrograma();
